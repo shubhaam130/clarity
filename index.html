@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CLARITY AI | Decision Intelligence Copilot</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="liquid-field" aria-hidden="true">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="ambient ambient-a"></div>
+    <div class="ambient ambient-b"></div>
+    <div class="toast hidden" id="toast" role="status" aria-live="polite"></div>
+
+    <header class="topbar">
+      <a class="brand" href="#hero" aria-label="CLARITY AI home">
+        <span class="brand-mark">C</span>
+        <span>CLARITY AI</span>
+      </a>
+      <nav class="nav">
+        <a href="#dashboard">Decision Center</a>
+        <a href="#story">Business Story</a>
+        <a href="#actions">Action Plan</a>
+      </nav>
+      <div class="top-actions">
+        <button class="icon-button" id="presentationToggle" title="Presentation mode" aria-label="Presentation mode">
+          <span>◱</span>
+        </button>
+        <button class="ghost-button" id="reportButton">Download Report</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">AI Decision Intelligence Copilot</p>
+          <h1><span class="decrypt-title" data-text="Turn Raw Data Into Better Decisions.">Turn Raw Data Into Better Decisions.</span></h1>
+          <p class="hero-subtitle">
+            Start with a spreadsheet. Leave with the decision, the evidence, the risk, and the next
+            executive action.
+          </p>
+          <div class="hero-actions">
+            <label class="primary-button" for="csvInput">Start Analysis</label>
+            <button class="secondary-button" id="demoButton">Try Demo Dataset</button>
+            <input id="csvInput" type="file" accept=".csv,text/csv" />
+          </div>
+          <div class="trust-row" aria-label="Product strengths">
+            <span>Senior consultant language</span>
+            <span>Transparent SQL</span>
+            <span>Executive report</span>
+          </div>
+        </div>
+
+        <div class="hero-preview" aria-label="Decision intelligence preview">
+          <div class="preview-header">
+            <span class="signal"></span>
+            <span>Live Decision Brief</span>
+          </div>
+          <div class="preview-score">
+            <strong id="heroScore">91</strong>
+            <span>/ 100 business health</span>
+          </div>
+          <div class="preview-grid">
+            <div>
+              <span>Top risk</span>
+              <strong id="heroTopRisk">Revenue concentration</strong>
+            </div>
+            <div>
+              <span>Best move</span>
+              <strong id="heroBestMove">Protect repeat buyers</strong>
+            </div>
+          </div>
+          <canvas class="mini-chart real-chart" id="heroMiniChart" width="520" height="170" aria-label="Revenue mini trend chart"></canvas>
+          <p id="heroInsight">
+            Revenue softened after April because discount-heavy channels grew faster than premium
+            product lines. Retention is the clearest profit lever.
+          </p>
+        </div>
+      </section>
+
+      <section class="thinking hidden" id="thinking">
+        <div class="thinking-shell">
+          <p class="eyebrow">AI Reasoning</p>
+          <h2 id="thinkingTitle">Reading your data...</h2>
+          <div class="thinking-track" id="thinkingTrack"></div>
+        </div>
+      </section>
+
+      <section class="replay hidden" id="replay">
+        <div class="replay-shell">
+          <p class="eyebrow">Decision Replay</p>
+          <h2>How CLARITY reached the recommendation.</h2>
+          <div class="replay-stage" id="replayStage"></div>
+        </div>
+      </section>
+
+      <section class="dashboard hidden" id="dashboard">
+        <div class="section-heading">
+          <p class="eyebrow">Decision Center</p>
+          <h2>Protect repeat revenue before expanding promotions.</h2>
+          <p id="dashboardSubtitle">Load a dataset to receive an executive decision brief.</p>
+        </div>
+
+        <div class="kpi-grid" id="kpiGrid"></div>
+
+        <div class="decision-layout">
+          <article class="health-panel">
+            <div>
+              <p class="eyebrow">Business Health Score</p>
+              <div class="health-score"><span id="healthScore">0</span><small>/ 100</small></div>
+            </div>
+            <div class="score-ring" id="scoreRing"><span></span></div>
+            <p id="healthExplanation"></p>
+          </article>
+
+          <article class="summary-panel">
+            <p class="eyebrow">Executive Summary</p>
+            <div id="summaryList"></div>
+          </article>
+        </div>
+
+          <div class="decision-tabs" role="tablist" aria-label="Decision center sections">
+          <button class="tab-button active" data-target="brief" type="button" role="tab" aria-controls="brief" aria-selected="true">Executive Brief</button>
+          <button class="tab-button" data-target="story" type="button" role="tab" aria-controls="story" aria-selected="false">Business Story</button>
+          <button class="tab-button" data-target="insights" type="button" role="tab" aria-controls="insights" aria-selected="false">Evidence</button>
+          <button class="tab-button" data-target="actions" type="button" role="tab" aria-controls="actions" aria-selected="false">Recommendations</button>
+          <button class="tab-button" data-target="console" type="button" role="tab" aria-controls="console" aria-selected="false">SQL Explorer</button>
+          <button class="tab-button" data-target="copilotWorkspace" type="button" role="tab" aria-controls="copilotWorkspace" aria-selected="false">AI Copilot</button>
+        </div>
+      </section>
+
+      <section class="brief hidden tab-panel active-panel" id="brief">
+        <div class="section-heading">
+          <p class="eyebrow">Executive Brief</p>
+          <h2>The decision, evidence, and expected impact.</h2>
+        </div>
+        <div class="brief-grid" id="briefGrid"></div>
+      </section>
+
+      <section class="story hidden tab-panel active-panel" id="story">
+        <div class="section-heading">
+          <p class="eyebrow">Business Story</p>
+          <h2>What changed, why it matters, and what leadership should do.</h2>
+        </div>
+        <article class="story-card">
+          <p id="businessStory"></p>
+        </article>
+      </section>
+
+      <section class="insights hidden tab-panel panel-collapsed" id="insights">
+        <div class="section-heading">
+          <p class="eyebrow">Evidence Charts</p>
+          <h2>Every chart explains the decision.</h2>
+        </div>
+        <div class="chart-grid">
+          <article class="chart-card">
+            <div class="chart-header">
+              <div>
+                <p class="eyebrow">Revenue Trend</p>
+                <h3>Where growth slowed</h3>
+              </div>
+              <span id="trendBadge">Live</span>
+            </div>
+            <canvas id="trendChart" width="900" height="420"></canvas>
+            <div class="chart-context" id="trendContext"></div>
+          </article>
+          <article class="chart-card">
+            <div class="chart-header">
+              <div>
+                <p class="eyebrow">Category Mix</p>
+                <h3>Where the business depends most</h3>
+              </div>
+              <span>Decision view</span>
+            </div>
+            <canvas id="mixChart" width="900" height="420"></canvas>
+            <div class="chart-context" id="mixContext"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="actions-section hidden tab-panel panel-collapsed" id="actions">
+        <div class="section-heading">
+          <p class="eyebrow">Action Plan</p>
+          <h2>The next decisions, ranked by evidence.</h2>
+        </div>
+        <div class="actions-grid" id="actionGrid"></div>
+      </section>
+
+      <section class="console-section hidden tab-panel panel-collapsed" id="console">
+        <div class="section-heading">
+          <p class="eyebrow">Natural Language Analytics</p>
+          <h2>Question → reasoning → SQL → decision.</h2>
+        </div>
+        <div class="console">
+          <div class="prompt-row">
+            <input id="analystInput" value="Show top 10 customers." aria-label="Analyst question" />
+            <button class="primary-button compact" id="runQuery">Ask</button>
+          </div>
+          <div class="sql-box">
+            <span>Reasoning</span>
+            <p id="queryReasoning">The SQL Explorer explains each query before showing results.</p>
+          </div>
+          <div class="sql-box">
+            <span>Generated SQL</span>
+            <code id="sqlOutput">SELECT customer, SUM(revenue) AS revenue FROM dataset GROUP BY customer ORDER BY revenue DESC LIMIT 10;</code>
+          </div>
+          <div class="table-wrap">
+            <table id="resultTable" aria-live="polite"></table>
+          </div>
+          <p class="console-meaning" id="consoleMeaning" role="status" aria-live="polite"></p>
+        </div>
+      </section>
+
+      <section class="copilot-workspace hidden tab-panel panel-collapsed" id="copilotWorkspace">
+        <div class="section-heading">
+          <p class="eyebrow">AI Copilot</p>
+          <h2>Executive answers with traceable evidence.</h2>
+        </div>
+        <article class="copilot-workspace-card">
+          <div class="quick-prompts workspace-prompts" id="workspacePrompts"></div>
+          <div class="copilot-answer" id="workspaceCopilotAnswer" role="status" aria-live="polite">
+            Copilot opens with executive decisions after analysis completes.
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <nav class="dock-nav" aria-label="Quick navigation">
+      <button data-jump="hero" title="Home" type="button"><span class="dock-icon">⌂</span><span class="dock-label">Home</span></button>
+      <button data-jump="dashboard" title="Decision" type="button"><span class="dock-icon">◆</span><span class="dock-label">Decision</span></button>
+      <button data-jump="story" title="Story" type="button"><span class="dock-icon">✦</span><span class="dock-label">Story</span></button>
+      <button data-jump="actions" title="Actions" type="button"><span class="dock-icon">✓</span><span class="dock-label">Actions</span></button>
+      <button data-jump="console" title="Ask AI" type="button"><span class="dock-icon">AI</span><span class="dock-label">Ask</span></button>
+    </nav>
+
+    <aside class="copilot hidden" id="copilot">
+      <button class="copilot-toggle" id="copilotToggle" aria-label="Open AI copilot">
+        <span>AI</span>
+      </button>
+      <div class="copilot-panel" id="copilotPanel">
+        <div class="copilot-header">
+          <div>
+            <p class="eyebrow">CLARITY Copilot</p>
+            <h3>Ask about the decision.</h3>
+          </div>
+          <button class="icon-button" id="closeCopilot" aria-label="Close copilot">×</button>
+        </div>
+        <div class="quick-prompts" id="quickPrompts"></div>
+        <div class="copilot-answer" id="copilotAnswer" role="status" aria-live="polite">
+          Copilot opens with three decisions requiring executive attention.
+        </div>
+      </div>
+    </aside>
+
+    <div class="presentation-dock hidden" id="presentationDock">
+      <button id="stepBack" class="icon-button" aria-label="Previous step">‹</button>
+      <span id="presentationLabel">Upload</span>
+      <button id="stepForward" class="icon-button" aria-label="Next step">›</button>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
